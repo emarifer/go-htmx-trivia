@@ -1,0 +1,5 @@
+.env
+tmp
+cmd/main
+# public/css/output.css
+node_modules

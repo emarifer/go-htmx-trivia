@@ -1,0 +1,14 @@
+<div class="card bg-base-200 shadow-xl w-11/12 md:w-96 p-6 mx-auto mt-12">
+    <form class="flex flex-col gap-4">
+        <label class="flex flex-col gap-1" for="question">
+            <span>Question</span>
+            <input class="input input-bordered" id="question" type="text" name="question" required autofocus>
+        </label>
+
+        <label class="flex flex-col gap-1" for="answer">
+            <span>Answer</span>
+            <input class="input input-bordered" id="answer" type="text" name="answer" required>
+        </label>
+        <input hx-post="/fact" class="btn btn-primary text-xs md:text-base" type="submit" value="Submit">
+    </form>
+</div>

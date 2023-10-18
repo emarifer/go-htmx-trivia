@@ -1,0 +1,24 @@
+<div class="mx-auto w-11/12 md:w-fit mt-9 md:mt-16 flex flex-col gap-3">
+    {{ if .Facts }}
+    {{ range .Facts }}
+    <a href="/fact/{{ .ID }}">
+        <div
+            class="card bg-pink-400 text-neutral text-sm md:text-base shadow-xl px-6 py-3 hover:-translate-y-1.5 ease-in duration-300">
+            <div class="flex justify-between gap-2">
+                <p class="font-semibold">{{ .Question }}</p>
+                <div class="badge badge-outline h-fit">
+                    {{ template "icon-arrow-right" .}}
+                </div>
+            </div>
+        </div>
+    </a>
+    {{ end }}
+    {{ else }}
+    <div class="no-facts">
+        <p>No facts yet.</p>
+        <p><a href="/fact">Add now</a></p>
+    </div>
+    {{ end }}
+</div>
+
+{{ template "button-up" .}}

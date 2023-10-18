@@ -1,0 +1,22 @@
+<div class="card bg-pink-400 text-neutral shadow-xl w-11/12 md:w-96 mx-auto mt-12">
+    {{ if .Fact }}
+    <div class="card-body">
+        <h2 class="card-title text-base md:text-xl" title="{{ .Fact.Question}}">
+            {{ .Fact.Question}}
+        </h2>
+        <p class="text-primary font-semibold" title="{{ .Fact.Answer}}">
+            {{ .Fact.Answer}}
+        </p>
+    </div>
+
+    <hr class="border-neutral mb-2">
+
+    <div class="card-actions justify-end px-4 py-2">
+        <a href="/fact/{{ .Fact.ID}}/edit" class="btn btn-primary text-xs md:text-base">Edit</a>
+        <button hx-delete="/fact/{{ .Fact.ID}}" hx-confirm="Are you sure you want to delete this fact?"
+            class="btn btn-secondary text-xs md:text-base">
+            Delete
+        </button>
+    </div>
+    {{ end }}
+</div>

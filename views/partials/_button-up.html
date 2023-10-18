@@ -1,0 +1,30 @@
+{{ define "button-up" }}
+<button class="btn btn-circle btn-primary fixed bottom-4 right-4 z-50" id="buttonUp" onclick="scrollToTop()"
+    style="display: none;">
+    <svg fill="#ecfeff" class="w-6 ml-[10px] mb-1" viewBox="0 0 16 16">
+        <path
+            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+    </svg>
+</button>
+
+<script>
+    const scrollToTop = () => {
+        scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
+    };
+
+    const buttonUp = document.getElementById("buttonUp");
+
+    const scrollFunction = () => {
+        if ((window.scrollY || window.document.documentElement.scrollTop) > 200) {
+            buttonUp.style.display = "block";
+        } else {
+            buttonUp.style.display = "none";
+        }
+    };
+
+    window.onscroll = () => scrollFunction();
+</script>
+{{end }}
