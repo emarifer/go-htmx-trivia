@@ -53,15 +53,16 @@ func CreateFact(c *fiber.Ctx) error {
 	// Validamos que los campos vengan y sean correctos
 	errors := models.ValidateStruct(fact)
 	if errors != nil {
-		c.Set("HX-Redirect", "/")
+		c.Status(fiber.StatusBadRequest).SendString("The 'question' and/or 'answer' fields must be completed")
 		return nil
 	}
 
 	facts := []models.Fact{}
 	err := database.DB.Sp.DB.From("facts").Insert(fact).Execute(&facts)
 	if err != nil {
-		c.Set("HX-Redirect", "/fact")
-		return err
+		c.Status(fiber.StatusInternalServerError).SendString("Something went wrong…")
+
+		return nil
 	}
 
 	c.Set("HX-Redirect", "/")
@@ -112,10 +113,21 @@ func UpadteFact(c *fiber.Ctx) error {
 		Answer:   c.FormValue("answer"),
 	}
 
-	err := database.DB.Sp.DB.From("facts").Update(&fact).Eq("id", id).Execute(&fact)
+	// Validamos que los campos vengan y sean correctos
+	errors := models.ValidateStruct(fact)
+	if errors != nil {
+		c.Status(fiber.StatusBadRequest).SendString("The 'question' and/or 'answer' fields must be completed")
+		return nil
+	}
+
+	// Solución la problema de error con el método Update. VER:
+	// https://github.com/nedpals/supabase-go/issues/3#issuecomment-1542984127
+	var results []models.Fact
+	err := database.DB.Sp.DB.From("facts").Update(fact).Eq("id", id).Execute(&results)
 	if err != nil {
-		c.Set("HX-Redirect", fmt.Sprintf("/fact/%s", id))
-		return err
+		c.Status(fiber.StatusInternalServerError).SendString("Something went wrong…")
+
+		return nil
 	}
 
 	c.Set("HX-Redirect", fmt.Sprintf("/fact/%s", id))
@@ -171,4 +183,8 @@ https://htmx.org/attributes/hx-confirm/
 COMO EL DRIVER DE SUPABASE PARA GO, EN PRINCIPIO, NO DA ORDENACIÓN
 DE LOS ELEMENTOS DE LA TABLA, HACEMOS UNA ORDENACIÓN MANUAL DEL SLICE:
 https://freshman.tech/snippets/go/sorting-in-go/
+*/
+
+/* handle errors with HTMX:
+   https://htmx.org/extensions/response-targets/
 */

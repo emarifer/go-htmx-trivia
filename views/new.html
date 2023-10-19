@@ -1,5 +1,5 @@
 <div class="card bg-base-200 shadow-xl w-11/12 md:w-96 p-6 mx-auto mt-12">
-    <form class="flex flex-col gap-4">
+    <form hx-ext="response-targets" class="flex flex-col gap-4">
         <label class="flex flex-col gap-1" for="question">
             <span>Question</span>
             <input class="input input-bordered" id="question" type="text" name="question" required autofocus>
@@ -9,6 +9,16 @@
             <span>Answer</span>
             <input class="input input-bordered" id="answer" type="text" name="answer" required>
         </label>
-        <input hx-post="/fact" class="btn btn-primary text-xs md:text-base" type="submit" value="Submit">
+
+        <div id="errors-new" class="text-xs text-red-700"></div>
+
+        <button hx-post="/fact" hx-target-400="#errors-new" hx-target-500="#errors-new"
+            class="btn btn-primary text-xs md:text-base">
+            Submit
+        </button>
     </form>
 </div>
+
+<!-- handle errors with HTMX:
+    https://htmx.org/extensions/response-targets/
+ -->

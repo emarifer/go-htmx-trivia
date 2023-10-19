@@ -7,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="app to play trivia">
     <link rel="shortcut icon" href="/img/gopher-svgrepo-com.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/output.css">
     <meta name="google" content="notranslate" />
     <title>{{ .PageTitle }}</title>
     <script src="https://unpkg.com/htmx.org@1.9.6"
         integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
-    <link rel="stylesheet" href="/css/output.css">
 </head>
 
 <body _="on scroll from window
@@ -55,6 +56,10 @@
 </body>
 
 </html>
+
+<!-- handle errors with HTMX:
+    https://htmx.org/extensions/response-targets/
+ -->
 
 <!-- <script>
     const timeStamp = Date.now();

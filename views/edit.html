@@ -1,5 +1,5 @@
 <div class="card bg-base-200 shadow-xl w-11/12 md:w-96 p-6 mx-auto mt-12">
-    <form class="flex flex-col gap-4">
+    <form hx-ext="response-targets" class="flex flex-col gap-4">
         <label class="flex flex-col gap-1" for=" question">
             <span>Question</span>
             <input class="input input-bordered" id="question" type="text" name="question" value="{{ .Fact.Question}}"
@@ -12,6 +12,15 @@
                 required>
         </label>
 
-        <input hx-patch="/fact/{{ .Fact.ID}}" class="btn btn-primary text-xs md:text-base" type="submit" value="Update">
+        <div id="errors-edit" class="text-xs text-red-700"></div>
+
+        <button hx-patch="/fact/{{ .Fact.ID}}" hx-target-400="#errors-edit" hx-target-500="#errors-edit"
+            class="btn btn-primary text-xs md:text-base">
+            Update
+        </button>
     </form>
 </div>
+
+<!-- handle errors with HTMX:
+    https://htmx.org/extensions/response-targets/
+ -->
